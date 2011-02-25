@@ -1,6 +1,6 @@
 = dynamic_vars
 
-Dynamic variable gem inspired by (http://chneukirchen.org/blog/archive/2005/04/dynamic-variables-in-ruby.html)
+Dynamic variable gem inspired by (http://chneukirchen.org/blog/archive/2005/04/dynamic-variables-in-ruby.html).  By inspired, I mean that with his permission, I took the code from his blog post and turned it into this gem.
 
 TODO:
 
@@ -18,6 +18,5 @@ Examples....
 
 == Copyright
 
-Copyright (c) 2011 Rob Di Marco. See LICENSE.txt for
-further details.
+Copyright (c) 2011 Rob Di Marco. See LICENSE.txt for further details.
 
