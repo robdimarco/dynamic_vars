@@ -1,6 +1,7 @@
 require 'helper'
 
 class TestDynamicVars < Test::Unit::TestCase
+  
   def test_01_variable
     DynamicVars.variable :foo
     assert_nil DynamicVars[:foo]
@@ -92,5 +93,22 @@ class TestDynamicVars < Test::Unit::TestCase
 
     assert_equal :a, DynamicVars.threaded_a
     assert_equal :b, DynamicVars.threaded_b
+  end
+  
+  def test_07_handle_raised_exception_in_scope
+    DynamicVars.variable :seven=> :seven
+    assert_equal :seven, DynamicVars.seven
+
+    begin
+      DynamicVars.let(:seven => 7) do
+        assert_equal 7, DynamicVars.seven
+        raise "Testing"
+      end
+      fail "Should have a raising"
+    rescue
+      # Should be here
+    end
+
+    assert_equal :seven, DynamicVars.seven
   end
 end
