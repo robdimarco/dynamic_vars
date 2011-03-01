@@ -2,9 +2,32 @@
 
 Dynamic variable gem inspired by (http://chneukirchen.org/blog/archive/2005/04/dynamic-variables-in-ruby.html).  By inspired, I mean that with his permission, I took the code from his blog post and turned it into this gem.
 
-TODO:
+The goal of the gem is to allow for a thread local storage with defaults, like let in Lisp.  So with DyanmicVars we can do the following
 
-Examples....
+  ruby-1.8.7-p174 > require 'rubygems'
+   => true 
+  ruby-1.8.7-p174 > require 'dynamic_vars'
+   => true 
+  ruby-1.8.7-p174 > DynamicVars.fancy_rate = 0.5
+   => 0.5 
+  ruby-1.8.7-p174 > class Example; def fancy_calculation(base); base * DynamicVars.fancy_rate; end; end
+   => nil 
+  ruby-1.8.7-p174 > Example.new.fancy_calculation(5)
+   => 2.5 
+  ruby-1.8.7-p174 > DynamicVars.let(:fancy_rate=>3){Example.new.fancy_calculation(5)}
+   => 15 
+  ruby-1.8.7-p174 > Example.new.fancy_calculation(5)
+   => 2.5 
+
+As you can see in this example, we set up a base "fancy_rate" of 0.5.  When we reference this rate using DynamicVars.fancy_rate, it is 0.5.  However, if we want to temporarily set up a context and change the fancy_rate within the context of the let block, we can do it.
+
+== Thread Safety
+
+When using a let, we are making a change in the ThreadLocal, so no other threads will see the change.  This is nicer than using static variables which are not thread safe.
+
+== Where to Use
+
+This can be used when you do not want to clog up your methods passing in informations.
 
 == Contributing to dynamic_vars
  
